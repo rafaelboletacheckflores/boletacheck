@@ -376,92 +376,133 @@
   }
 </script>
 
-</body>
-</html>
 <!-- SECCIÓN TRABAJA CON NOSOTROS -->
 <section id="trabaja-con-nosotros" style="padding: 50px 20px; background-color: #f4f4f4;">
   <h2 style="text-align: center; color: #333;">Trabaja con nosotros</h2>
   <p style="text-align: center; max-width: 700px; margin: 10px auto;">
     ¿Eres técnico o ingeniero eléctrico y quieres unirte a nuestra red? En BoletaCheck.cl estamos reclutando profesionales para brindar servicios en Región Metropolitana, O’Higgins y Maule.
   </p>
-  <div style="text-align: center; margin-top: 20px;">
-    <button onclick="document.getElementById('detalles-trabajo').style.display='block'; this.style.display='none';" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-      Ver más
-    </button>
-  </div>
-  <div id="detalles-trabajo" style="display: none; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; background-color: white; padding: 20px; border-radius: 10px;">
-    <h3>Políticas y reglas</h3>
+  <button id="verMasBtn" style="display: block; margin: 15px auto; background-color: #004080; color: white; padding: 12px 25px; border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer;">
+    Ver más
+  </button>
+  <div id="masInformacion" style="display: none; max-width: 700px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); color: #333; font-size: 0.95em;">
+    <h3>Políticas y Reglas</h3>
     <ul>
-      <li>Todos los técnicos deben contar con certificados que validen su experiencia (SEC o estudios relacionados).</li>
-      <li>Se requiere contar con herramientas propias y movilización.</li>
-      <li>Los técnicos deben mantener trato respetuoso y profesional con los clientes.</li>
-      <li>La puntualidad y compromiso con cada servicio es fundamental.</li>
-      <li>El técnico recibirá el pago <strong>lo más rápido posible</strong> después de finalizado el servicio.</li>
-      <li>El pago será realizado <strong>por transferencia directa</strong> desde la administración, <strong>descontando el 20% de comisión</strong> por servicio prestado.</li>
-      <li>Todos los pagos son gestionados por BoletaCheck.cl. El cliente paga directamente al administrador, quien luego transfiere al técnico.</li>
+      <li>✅ Debes contar con certificación y experiencia comprobable en electricidad.</li>
+      <li>✅ Movilidad propia para desplazamientos en tu región.</li>
+      <li>✅ Herramientas básicas para realizar los trabajos.</li>
+      <li>✅ Comisiones del 20% para administración y gestión de clientes.</li>
+      <li>✅ Responsabilidad y profesionalismo en cada trabajo.</li>
+      <li>✅ Cumplimiento de protocolos de seguridad y normativas chilenas vigentes.</li>
     </ul>
     <h3>¿Cómo postular?</h3>
     <ol>
-      <li>Envía tus certificados y experiencia al correo: <strong>boletacheck@gmail.com</strong> o al WhatsApp.</li>
-      <li>Incluye tus datos personales y región donde trabajas.</li>
-      <li>Nos pondremos en contacto para confirmar tu incorporación a la red.</li>
+      <li>Envía tu CV y certificados a <a href="mailto:boletacheck@gmail.com">boletacheck@gmail.com</a>.</li>
+      <li>Contáctanos por WhatsApp para una entrevista: <a href="https://wa.me/56957564561" target="_blank">+56 9 5756 4561</a>.</li>
+      <li>Una vez aprobado, te integras a nuestra red de técnicos.</li>
     </ol>
   </div>
 </section>
 
+<script>
+  document.getElementById("verMasBtn").addEventListener("click", () => {
+    const info = document.getElementById("masInformacion");
+    if (info.style.display === "none") {
+      info.style.display = "block";
+      document.getElementById("verMasBtn").textContent = "Ver menos";
+    } else {
+      info.style.display = "none";
+      document.getElementById("verMasBtn").textContent = "Ver más";
+    }
+  });
+</script>
+
 <!-- PREGUNTAS FRECUENTES -->
 <section id="faq" style="padding: 50px 20px; background-color: #ffffff;">
-  <h2 style="text-align: center; color: #333;">Preguntas frecuentes</h2>
-  <div style="max-width: 800px; margin: 30px auto;">
-    <details style="margin-bottom: 15px;">
-      <summary style="font-weight: bold;">¿Cómo puedo contactar a un técnico?</summary>
-      <p>Haz clic en el botón de WhatsApp y cuéntanos tu problema. Te asignaremos un técnico disponible en tu región.</p>
-    </details>
-    <details style="margin-bottom: 15px;">
-      <summary style="font-weight: bold;">¿Atienden empresas o industrias?</summary>
-      <p>Sí, ofrecemos servicios para industrias, packing, domicilios y empresas en Región Metropolitana, O’Higgins y Maule.</p>
-    </details>
-    <details style="margin-bottom: 15px;">¿Qué incluye el valor que aparece en la página??</summary>
-      <p> Los valores publicados son por mano de obra. No incluyen materiales, los cuales deben ser cotizados según tu caso. Siempre confirmamos todo antes de iniciar el trabajo.<
-      <summary style="font-weight: bold;">¿Qué hago si no encuentro el servicio que necesito?</summary>
-      <p>Escríbenos por WhatsApp y cuéntanos tu necesidad. Tenemos soluciones a medida para cada caso.</p>
-    </details>
-    <details style="margin-bottom: 15px;">
-      <summary style="font-weight: bold;"¿Qué incluye el valor que aparece en la página?
-    </details>
-    <details style="margin-bottom: 15px;">
-      <summary style="font-weight: bold;">¿Cuánto demoran en responder?</summary>
-      <p>Respondemos dentro de minutos durante el horario laboral. Siempre intentamos darte atención inmediata.</p>
-    </details>
+  <h2>❓ Preguntas Frecuentes (FAQ)</h2>
+
+  <div>
+    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
+      ¿Cómo contacto a un técnico para un servicio?
+    </button>
+    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
+      Puedes contactarnos fácilmente por WhatsApp al <a href="https://wa.me/56957564561" target="_blank">+56 9 5756 4561</a> o enviarnos un correo a <a href="mailto:boletacheck@gmail.com">boletacheck@gmail.com</a>.
+    </div>
   </div>
+
+  <div>
+    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
+      ¿Los precios incluyen materiales?
+    </button>
+    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
+      No, los precios indicados son solo mano de obra. Los materiales se cotizan por separado según el requerimiento.
+    </div>
+  </div>
+
+  <div>
+    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
+      ¿Qué regiones atienden?
+    </button>
+    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
+      Atendemos la Región Metropolitana, O’Higgins y Maule. Por favor, contacta por WhatsApp para confirmar disponibilidad en tu comuna.
+    </div>
+  </div>
+
+  <div>
+    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
+      ¿Cómo funciona la calculadora de boleta?
+    </button>
+    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
+      Debes ingresar tu consumo mensual y el monto pagado para recibir un cálculo aproximado y saber si estás pagando acorde al mercado.
+    </div>
+  </div>
+
+  <div>
+    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
+      ¿Qué hago si quiero un servicio no listado?
+    </button>
+    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
+      Contáctanos por WhatsApp o correo para evaluar tu solicitud y ofrecerte una cotización personalizada.
+    </div>
+  </div>
+
 </section>
+
+<script>
+  // Funcionalidad FAQ desplegable
+  document.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+      const answer = button.nextElementSibling;
+      if (answer.style.display === "block") {
+        answer.style.display = "none";
+      } else {
+        // Cierra todas las respuestas abiertas
+        document.querySelectorAll(".faq-answer").forEach(a => a.style.display = "none");
+        answer.style.display = "block";
+      }
+    });
+  });
+</script>
 
 <!-- NOTICIAS Y RECOMENDACIONES -->
 <section id="noticias" style="padding: 50px 20px; background-color: #eef2f7;">
-  <h2 style="text-align: center; color: #333;">Noticias y recomendaciones</h2>
-  <div style="max-width: 1000px; margin: 30px auto; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
-    <div style="background-color: white; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-      <h4>⚡ Nuevas tarifas eléctricas 2025</h4>
-      <p>Infórmate sobre los cambios en tarifas de energía en Chile. Aprende cómo optimizar tu consumo y reducir tu boleta.</p>
-    </div>
-    <div style="background-color: white; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-      <h4>💡 Tips para ahorrar electricidad</h4>
-      <p>Desenchufa artefactos innecesarios, cambia a iluminación LED y revisa tus consumos mensuales.</p>
-    </div>
-    <div style="background-color: white; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-      <h4>🔌 Seguridad eléctrica en casa</h4>
-      <p>Evita sobrecargar enchufes. Haz revisiones preventivas. Tu seguridad y la de tu familia es lo más importante.</p>
-    </div>
-  </div>
+  <h2>📰 Noticias y Recomendaciones Eléctricas 2025</h2>
+  <article style="max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+    <h3 style="color: #004080;">Consejos para reducir tu boleta de luz</h3>
+    <p>Usa luminarias LED, desconecta aparatos cuando no los uses y evita cargas durante horas punta. Aprovecha los programas de eficiencia energética del gobierno chileno.</p>
+  </article>
+  <article style="max-width: 800px; margin: 40px auto 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+    <h3 style="color: #004080;">Normativas eléctricas en Chile para 2025</h3>
+    <p>Se actualizan los estándares para instalaciones domiciliarias e industriales, priorizando la seguridad y eficiencia. Asegúrate que tu técnico esté certificado y cumpla con la normativa vigente.</p>
+  </article>
 </section>
 
 <!-- PIE DE PÁGINA -->
 <footer style="background-color: #333; color: white; text-align: center; padding: 30px;">
-  <p>&copy; 2025 BoletaCheck.cl - Todos los derechos reservados.</p>
-  <p>Creado por Rafael Flores Fernández</p>
+  <p>© 2025 BoletaCheck.cl - Creado por Rafael Flores Fernández</p>
+  <p>Contacto: <a href="mailto:boletacheck@gmail.com" style="color: #00bfff;">boletacheck@gmail.com</a> | WhatsApp: <a href="https://wa.me/56957564561" target="_blank" style="color: #00bfff;">+56 9 5756 4561</a></p>
 </footer>
 
-<!-- BOTÓN WHATSAPP FLOTANTE -->
-<a href="https://wa.me/56957564561?text=🔌 ¡Hola! Gracias por contactar a BoletaCheck.cl ⚡ Cuéntanos tu consulta o el servicio eléctrico que necesitas. 📍 Atendemos en Región Metropolitana, O’Higgins y Maule. Te responderemos pronto. ¡Gracias por preferirnos!" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 999;">
-  💬 WhatsApp
-</a>
+</body>
+</html>
+
