@@ -318,191 +318,108 @@
 </section>
 
 <script>
-  // Cálculo para la calculadora de boleta según régimen chileno 2025 (tarifas aproximadas)
+  // Cálculo para la calculadora de boleta
   function calcularBoleta() {
-    const tipo = document.getElementById("tipoCliente").value;
-    const kwh = parseFloat(document.getElementById("kwh").value);
-    const monto = parseFloat(document.getElementById("monto").value);
+    const tipo = document.getElementById('tipoCliente').value;
+    const kwh = parseFloat(document.getElementById('kwh').value);
+    const monto = parseFloat(document.getElementById('monto').value);
+    const resultado = document.getElementById('resultadoBoleta');
 
-    if (isNaN(kwh) || kwh <= 0 || isNaN(monto) || monto <= 0) {
-      document.getElementById("resultadoBoleta").textContent = "Por favor, completa todos los campos con valores válidos.";
+    if (isNaN(kwh) || isNaN(monto) || kwh <= 0 || monto <= 0) {
+      resultado.textContent = "Por favor ingresa valores válidos y mayores a cero.";
       return;
     }
 
-    // Tarifas aproximadas por kWh 2025 (CLP)
-    // Fuente: mercado eléctrico Chile, estimados
-    const tarifaResidencial = 160; // $/kWh para residencial
-    const tarifaIndustrial = 110;  // $/kWh para industrial
+    // Tarifas promedio residenciales y comerciales (2025 Chile)
+    // Residencial: tarifa básica aprox $130 por kWh
+    // Industrial: tarifa aprox $100 por kWh
+    const tarifaResidencial = 130;
+    const tarifaIndustrial = 100;
 
-    const tarifaEsperada = tipo === "residencial" ? tarifaResidencial : tarifaIndustrial;
-    const costoEstimado = kwh * tarifaEsperada;
+    let costoEstimado = 0;
+    if (tipo === 'residencial') {
+      costoEstimado = kwh * tarifaResidencial;
+    } else {
+      costoEstimado = kwh * tarifaIndustrial;
+    }
 
-    let mensaje = `👉 Valor estimado según tarifa ${tipo === "residencial" ? "residencial" : "industrial"}: $${costoEstimado.toLocaleString('es-CL')}\n`;
-    mensaje += `👉 Monto pagado en boleta: $${monto.toLocaleString('es-CL')}\n\n`;
+    let mensaje = `Consumo ingresado: ${kwh.toFixed(2)} kWh\n` +
+      `Monto pagado: $${monto.toLocaleString('es-CL')}\n` +
+      `Costo estimado según tarifa: $${costoEstimado.toLocaleString('es-CL')}\n\n`;
 
     if (monto > costoEstimado * 1.15) {
-      mensaje += "⚠️ Estás pagando más de lo esperado. Revisa tu consumo o tarifa con un experto.\n";
+      mensaje += "⚠️ Parece que estás pagando más de lo estimado.\n" +
+                 "Revisa posibles cargos extras o errores en la boleta.";
     } else if (monto < costoEstimado * 0.85) {
-      mensaje += "✅ Estás pagando menos que el promedio estimado.\n";
+      mensaje += "✅ Tu pago es menor que el estimado, posible ahorro.";
     } else {
-      mensaje += "📊 Tu pago está dentro del rango normal.\n";
+      mensaje += "✔️ Tu pago está dentro del rango esperado.";
     }
-    mensaje += "\n*Estos cálculos son aproximados y no consideran impuestos ni cobros adicionales.";
 
-    document.getElementById("resultadoBoleta").textContent = mensaje;
+    resultado.textContent = mensaje;
   }
 
-  // Cálculo para la calculadora de consumo artefactos
+  // Cálculo para la calculadora de artefactos
   function calcularArtefacto() {
-    const watts = parseFloat(document.getElementById("watts").value);
-    const horas = parseFloat(document.getElementById("horas").value);
-    const dias = parseFloat(document.getElementById("dias").value);
+    const watts = parseFloat(document.getElementById('watts').value);
+    const horas = parseFloat(document.getElementById('horas').value);
+    const dias = parseInt(document.getElementById('dias').value);
+    const resultado = document.getElementById('resultadoArtefacto');
 
-    if (isNaN(watts) || watts <= 0 || isNaN(horas) || horas <= 0 || isNaN(dias) || dias <= 0) {
-      document.getElementById("resultadoArtefacto").textContent = "Completa todos los campos con valores válidos.";
+    if (isNaN(watts) || isNaN(horas) || isNaN(dias) || watts <= 0 || horas <= 0 || dias <= 0) {
+      resultado.textContent = "Por favor ingresa valores válidos y mayores a cero.";
       return;
     }
 
-    const kwhMes = (watts / 1000) * horas * dias; // kWh consumidos al mes
-    const tarifaPromedio = 160; // CLP por kWh residencial promedio 2025
+    // kWh consumidos al mes
+    const kwhMes = (watts * horas * dias) / 1000;
+    // Costo estimado con tarifa residencial promedio
+    const tarifaResidencial = 130;
+    const costoEstimado = kwhMes * tarifaResidencial;
 
-    const costoMensual = kwhMes * tarifaPromedio;
+    let mensaje = `Consumo estimado: ${kwhMes.toFixed(2)} kWh/mes\n` +
+                  `Costo estimado: $${costoEstimado.toLocaleString('es-CL')}\n\n` +
+                  `Recuerda que estos valores son aproximados.`;
 
-    let texto = `Consumo mensual estimado: ${kwhMes.toFixed(2)} kWh\n`;
-    texto += `Costo mensual estimado (CLP): $${Math.round(costoMensual).toLocaleString('es-CL')}\n\n`;
-    texto += "*Basado en tarifa residencial promedio de $160 por kWh.";
-
-    document.getElementById("resultadoArtefacto").textContent = texto;
+    resultado.textContent = mensaje;
   }
 </script>
 
-<!-- SECCIÓN TRABAJA CON NOSOTROS -->
-<section id="trabaja-con-nosotros" style="padding: 50px 20px; background-color: #f4f4f4;">
-  <h2 style="text-align: center; color: #333;">Trabaja con nosotros</h2>
-  <p style="text-align: center; max-width: 700px; margin: 10px auto;">
-    ¿Eres técnico o ingeniero eléctrico y quieres unirte a nuestra red? En BoletaCheck.cl estamos reclutando profesionales para brindar servicios en Región Metropolitana, O’Higgins y Maule.
-  </p>
-  <button id="verMasBtn" style="display: block; margin: 15px auto; background-color: #004080; color: white; padding: 12px 25px; border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer;">
-    Ver más
-  </button>
-  <div id="masInformacion" style="display: none; max-width: 700px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); color: #333; font-size: 0.95em;">
-    <h3>Políticas y Reglas</h3>
+<!-- Trabaja con Nosotros -->
+<section>
+  <h2>👷‍♂️ Trabaja con Nosotros</h2>
+  <p>¿Eres técnico o ingeniero eléctrico y quieres trabajar con nosotros? Te ofrecemos una plataforma profesional y transparente.</p>
+  <button onclick="toggleTrabaja()">Ver más</button>
+  <div id="trabajaDetalles" style="display:none; margin-top:15px; background:#f0f8ff; padding:15px; border-radius:8px;">
+    <h3>Reglas y Políticas</h3>
     <ul>
-      <li>✅ Debes contar con certificación y experiencia comprobable en electricidad.</li>
-      <li>✅ Movilidad propia para desplazamientos en tu región.</li>
-      <li>✅ Herramientas básicas para realizar los trabajos.</li>
-      <li>✅ Comisiones del 20% para administración y gestión de clientes.</li>
-      <li>✅ Responsabilidad y profesionalismo en cada trabajo.</li>
-      <li>✅ Cumplimiento de protocolos de seguridad y normativas chilenas vigentes.</li>
+      <li>Comisión para administración: 20% de cada trabajo realizado.</li>
+      <li>Debes contar con certificaciones vigentes y experiencia comprobable.</li>
+      <li>Herramientas propias y movilidad son obligatorias.</li>
+      <li>Responder consultas y servicios con profesionalismo y puntualidad.</li>
+      <li>Las evaluaciones y comentarios de clientes son clave para mantenerte activo.</li>
+      <li>Contacta vía WhatsApp o correo para postular.</li>
     </ul>
-    <h3>¿Cómo postular?</h3>
+    <h3>Paso a paso para postular</h3>
     <ol>
-      <li>Envía tu CV y certificados a <a href="mailto:boletacheck@gmail.com">boletacheck@gmail.com</a>.</li>
-      <li>Contáctanos por WhatsApp para una entrevista: <a href="https://wa.me/56957564561" target="_blank">+56 9 5756 4561</a>.</li>
-      <li>Una vez aprobado, te integras a nuestra red de técnicos.</li>
+      <li>Enviar CV y certificados a <a href="mailto:boletacheck@gmail.com">boletacheck@gmail.com</a>.</li>
+      <li>Completar formulario de registro (te enviaremos el link por correo).</li>
+      <li>Recibirás capacitación breve sobre la plataforma.</li>
+      <li>¡Comienza a recibir órdenes de trabajo en tu zona!</li>
     </ol>
   </div>
 </section>
 
 <script>
-  document.getElementById("verMasBtn").addEventListener("click", () => {
-    const info = document.getElementById("masInformacion");
-    if (info.style.display === "none") {
-      info.style.display = "block";
-      document.getElementById("verMasBtn").textContent = "Ver menos";
+  function toggleTrabaja() {
+    const detalles = document.getElementById('trabajaDetalles');
+    if (detalles.style.display === 'none') {
+      detalles.style.display = 'block';
     } else {
-      info.style.display = "none";
-      document.getElementById("verMasBtn").textContent = "Ver más";
+      detalles.style.display = 'none';
     }
-  });
+  }
 </script>
-
-<!-- PREGUNTAS FRECUENTES -->
-<section id="faq" style="padding: 50px 20px; background-color: #ffffff;">
-  <h2>❓ Preguntas Frecuentes (FAQ)</h2>
-
-  <div>
-    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
-      ¿Cómo contacto a un técnico para un servicio?
-    </button>
-    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
-      Puedes contactarnos fácilmente por WhatsApp al <a href="https://wa.me/56957564561" target="_blank">+56 9 5756 4561</a> o enviarnos un correo a <a href="mailto:boletacheck@gmail.com">boletacheck@gmail.com</a>.
-    </div>
-  </div>
-
-  <div>
-    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
-      ¿Los precios incluyen materiales?
-    </button>
-    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
-      No, los precios indicados son solo mano de obra. Los materiales se cotizan por separado según el requerimiento.
-    </div>
-  </div>
-
-  <div>
-    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
-      ¿Qué regiones atienden?
-    </button>
-    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
-      Atendemos la Región Metropolitana, O’Higgins y Maule. Por favor, contacta por WhatsApp para confirmar disponibilidad en tu comuna.
-    </div>
-  </div>
-
-  <div>
-    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
-      ¿Cómo funciona la calculadora de boleta?
-    </button>
-    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
-      Debes ingresar tu consumo mensual y el monto pagado para recibir un cálculo aproximado y saber si estás pagando acorde al mercado.
-    </div>
-  </div>
-
-  <div>
-    <button class="faq-question" style="width: 100%; text-align: left; padding: 15px; font-size: 1.05em; background: #eef4ff; border: none; border-bottom: 1px solid #ccc; cursor: pointer;">
-      ¿Qué hago si quiero un servicio no listado?
-    </button>
-    <div class="faq-answer" style="display: none; padding: 15px 20px; background: #f9faff; border-left: 4px solid #004080;">
-      Contáctanos por WhatsApp o correo para evaluar tu solicitud y ofrecerte una cotización personalizada.
-    </div>
-  </div>
-
-</section>
-
-<script>
-  // Funcionalidad FAQ desplegable
-  document.querySelectorAll(".faq-question").forEach(button => {
-    button.addEventListener("click", () => {
-      const answer = button.nextElementSibling;
-      if (answer.style.display === "block") {
-        answer.style.display = "none";
-      } else {
-        // Cierra todas las respuestas abiertas
-        document.querySelectorAll(".faq-answer").forEach(a => a.style.display = "none");
-        answer.style.display = "block";
-      }
-    });
-  });
-</script>
-
-<!-- NOTICIAS Y RECOMENDACIONES -->
-<section id="noticias" style="padding: 50px 20px; background-color: #eef2f7;">
-  <h2>📰 Noticias y Recomendaciones Eléctricas 2025</h2>
-  <article style="max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-    <h3 style="color: #004080;">Consejos para reducir tu boleta de luz</h3>
-    <p>Usa luminarias LED, desconecta aparatos cuando no los uses y evita cargas durante horas punta. Aprovecha los programas de eficiencia energética del gobierno chileno.</p>
-  </article>
-  <article style="max-width: 800px; margin: 40px auto 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-    <h3 style="color: #004080;">Normativas eléctricas en Chile para 2025</h3>
-    <p>Se actualizan los estándares para instalaciones domiciliarias e industriales, priorizando la seguridad y eficiencia. Asegúrate que tu técnico esté certificado y cumpla con la normativa vigente.</p>
-  </article>
-</section>
-
-<!-- PIE DE PÁGINA -->
-<footer style="background-color: #333; color: white; text-align: center; padding: 30px;">
-  <p>© 2025 BoletaCheck.cl - Creado por Rafael Flores Fernández</p>
-  <p>Contacto: <a href="mailto:boletacheck@gmail.com" style="color: #00bfff;">boletacheck@gmail.com</a> | WhatsApp: <a href="https://wa.me/56957564561" target="_blank" style="color: #00bfff;">+56 9 5756 4561</a></p>
-</footer>
 
 </body>
 </html>
-
